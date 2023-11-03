@@ -79,8 +79,20 @@ public class ChordPeer extends AbstractChordPeer {
   @Override
   public ChordNode closestPrecedingFinger(ChordNode caller, Identifier id) {
     /* TODO: Implementation required. */
-
-    throw new RuntimeException("This method has not been implemented!");
+    for (int i = getNetwork().getNbits(); i>=1; i--){
+      if (finger().node(i).isEmpty()) {
+        continue;
+      }
+      ChordNode fingerNode = finger().node(i).get();
+      var interval = IdentifierCircularInterval.createOpen(
+              getIdentifier(),
+              id);
+      if (interval.contains(fingerNode.getIdentifier())){
+        return fingerNode;
+      }
+    }
+    return this;
+    //throw new RuntimeException("This method has not been implemented!");
   }
 
   /**
