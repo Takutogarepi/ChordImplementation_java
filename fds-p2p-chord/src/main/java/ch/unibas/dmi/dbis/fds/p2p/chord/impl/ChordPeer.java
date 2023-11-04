@@ -6,7 +6,9 @@ import ch.unibas.dmi.dbis.fds.p2p.chord.api.data.Identifier;
 import ch.unibas.dmi.dbis.fds.p2p.chord.api.data.IdentifierCircle;
 import ch.unibas.dmi.dbis.fds.p2p.chord.api.data.IdentifierCircularInterval;
 import ch.unibas.dmi.dbis.fds.p2p.chord.api.math.CircularInterval;
+import ch.unibas.dmi.dbis.fds.p2p.chord.api.math.HashFunction;
 
+import java.util.Optional;
 import java.util.Random;
 
 import static ch.unibas.dmi.dbis.fds.p2p.chord.api.data.IdentifierCircularInterval.createOpen;
@@ -78,7 +80,7 @@ public class ChordPeer extends AbstractChordPeer {
    */
   @Override
   public ChordNode closestPrecedingFinger(ChordNode caller, Identifier id) {
-    /* TODO: Implementation required. */
+
     for (int i = getNetwork().getNbits(); i>=1; i--){
       if (finger().node(i).isEmpty()) {
         continue;
@@ -92,7 +94,7 @@ public class ChordPeer extends AbstractChordPeer {
       }
     }
     return this;
-    //throw new RuntimeException("This method has not been implemented!");
+
   }
 
   /**
@@ -112,11 +114,39 @@ public class ChordPeer extends AbstractChordPeer {
       initFingerTable(nprime);
       updateOthers();
       /* TODO: Move keys. */
+      TransferKeysFromSuccessorToCurrent();
     } else {
       for (int i = 1; i <= getNetwork().getNbits(); i++) {
         this.fingerTable.setNode(i, this);
       }
       this.setPredecessor(this);
+    }
+  }
+
+  public void TransferKeysFromSuccessorToCurrent(){
+    ChordNode successor = successor();
+    HashFunction hashFunction = getNetwork().getHashFunction();
+    IdentifierCircularInterval interval = IdentifierCircularInterval.createLeftOpen(
+            predecessor().getIdentifier(), getIdentifier()
+    );
+    for (String key : successor.keys()){
+      var keyHash = hashFunction.hash(key);
+      var keyIdentifier = getNetwork().getIdentifierCircle().getIdentifierAt(keyHash);
+      if (!interval.contains(keyIdentifier)){
+        continue;
+      }
+      //This gets value from the succesor.
+      Optional<String> value = successor.lookup(this, key);
+      if (value.isEmpty()){
+        //if this is the case it means there was no value stored for the key therefor we just delete it.
+        successor.delete(this,key);
+        continue;
+      }
+      //here we store our <key:value> locally.
+      store(this, key, value.get());
+
+      //The key from the successor is no longer needed therefor we delete it.
+      successor.delete(this, key);
     }
   }
 
@@ -149,8 +179,22 @@ public class ChordPeer extends AbstractChordPeer {
    * @param nprime Arbitrary {@link ChordNode} that is part of the network.
    */
   private void initFingerTable(ChordNode nprime) {
-    /* TODO: Implementation required. */
-    throw new RuntimeException("This method has not been implemented!");
+    var interval = getFingerTable().interval(1);
+    fingerTable.setNode(1, nprime.findSuccessor(this, interval.getLeftBound()));
+    setPredecessor(successor().predecessor());
+    successor().setPredecessor(this);
+
+    for (int i = 1; i <= getNetwork().getNbits() - 1; i++){
+      if (finger().node(i).isEmpty()){
+        continue;
+      }
+      ChordNode fingerNode = finger().node(i).get();
+      interval = IdentifierCircularInterval.createRightOpen(getIdentifier(),fingerNode.getIdentifier());
+      if (interval.contains(finger().interval(i+1).getLeftBound())){
+        fingerTable.setNode(i+1, nprime.findSuccessor(this, finger().interval(i+1).getLeftBound()));
+      }
+    }
+
   }
 
   /**
