@@ -82,3 +82,63 @@ java.lang.RuntimeException: This method has not been implemented!
 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
 	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 16:44:03.510][ERROR][pool-1-thread-1] SimulationEngine - Chord simulation crashed with an exception.
+java.lang.RuntimeException: This method has not been implemented!
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.updateOthers(ChordPeer.java:207) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.joinAndUpdate(ChordPeer.java:115) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.api.AbstractChordPeer.join(AbstractChordPeer.java:163) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.initNetwork(SimulationEngine.java:271) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.run(SimulationEngine.java:78) ~[main/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 16:46:25.595][ERROR][pool-1-thread-1] SimulationEngine - Chord simulation crashed with an exception.
+java.lang.RuntimeException: This method has not been implemented!
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.updateOthers(ChordPeer.java:207) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.joinAndUpdate(ChordPeer.java:115) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.api.AbstractChordPeer.join(AbstractChordPeer.java:163) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.initNetwork(SimulationEngine.java:271) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.run(SimulationEngine.java:78) ~[main/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 16:50:23.357][ERROR][pool-1-thread-1] SimulationEngine - Chord simulation crashed with an exception.
+java.lang.RuntimeException: This method has not been implemented!
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.updateOthers(ChordPeer.java:207) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.joinAndUpdate(ChordPeer.java:115) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.api.AbstractChordPeer.join(AbstractChordPeer.java:163) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.initNetwork(SimulationEngine.java:271) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.run(SimulationEngine.java:78) ~[main/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 18:34:16.754][ERROR][pool-1-thread-1] SimulationEngine - Chord simulation crashed with an exception.
+java.lang.RuntimeException: This method has not been implemented!
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.stabilize(ChordPeer.java:270) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.next(SimulationEngine.java:247) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.run(SimulationEngine.java:84) ~[main/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 20:54:13.085][ERROR][pool-1-thread-1] SimulationEngine - Chord simulation crashed with an exception.
+java.lang.RuntimeException: This method has not been implemented!
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.updateOthers(ChordPeer.java:207) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.impl.ChordPeer.joinAndUpdate(ChordPeer.java:115) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.chord.api.AbstractChordPeer.join(AbstractChordPeer.java:163) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.initNetwork(SimulationEngine.java:271) ~[main/:?]
+	at ch.unibas.dmi.dbis.fds.p2p.simulation.SimulationEngine.run(SimulationEngine.java:78) ~[main/:?]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:572) ~[?:?]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:317) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1144) ~[?:?]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:642) ~[?:?]
+	at java.lang.Thread.run(Thread.java:1583) ~[?:?]
+[04.11.2023 20:58:43.876][WARN ][pool-1-thread-1] SimulationEngine - Chord simulation was terminated forcefully.
+[04.11.2023 22:31:25.072][WARN ][pool-1-thread-1] SimulationEngine - Chord simulation was terminated forcefully.

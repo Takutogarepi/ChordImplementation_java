@@ -55,7 +55,7 @@ public class ChordApplication extends Application {
   @Override
   public void start(Stage primaryStage) {
     /* Read configuration and prepare config. */
-    final boolean dynamic = Boolean.parseBoolean(getParameters().getNamed().getOrDefault(DYNAMIC_PARAMETER_NAME, "false"));
+    final boolean dynamic = Boolean.parseBoolean(getParameters().getNamed().getOrDefault(DYNAMIC_PARAMETER_NAME, "true"));
     final int nbits = Integer.parseInt(getParameters().getNamed().getOrDefault(NB_OF_BYTES_PARAMETER_NAME, "3"));
     final ChordConfiguration config = new ChordConfiguration(dynamic, nbits);
 
