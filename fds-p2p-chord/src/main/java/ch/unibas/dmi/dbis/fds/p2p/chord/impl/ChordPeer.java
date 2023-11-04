@@ -57,8 +57,6 @@ public class ChordPeer extends AbstractChordPeer {
   public ChordNode findPredecessor(ChordNode caller, Identifier id) {
 
     /* TODO: Implementation required. */
-
-    //throw new RuntimeException("This method has not been implemented!");
     ChordNode n_prime = this;
 
     while (!IdentifierCircularInterval.createLeftOpen(
@@ -93,6 +91,7 @@ public class ChordPeer extends AbstractChordPeer {
         return fingerNode;
       }
     }
+    // if no closer finger could be found, return self.
     return this;
 
   }
@@ -203,8 +202,20 @@ public class ChordPeer extends AbstractChordPeer {
    * Defined in [1], Figure 6
    */
   private void updateOthers() {
+    for (int i = 1; i <= getNetwork().getNbits(); i++) {
+      // Error: findPredecessor always returns the last node for the given id,
+      //        but sometimes we need to update the node at the given id,
+      //        so we add +1.
+      int id = getIdentifier().getIndex() + 1 - (int) Math.pow(2, i - 1);
+      Identifier identifier = getNetwork().getIdentifierCircle().getIdentifierAt(id);
+
+      ChordNode p = findPredecessor(
+              this,
+              identifier);
+      p.updateFingerTable(this, i);
+    }
     /* TODO: Implementation required. */
-    throw new RuntimeException("This method has not been implemented!");
+
   }
 
   /**
@@ -218,8 +229,19 @@ public class ChordPeer extends AbstractChordPeer {
   @Override
   public void updateFingerTable(ChordNode s, int i) {
     finger().node(i).ifPresent(node -> {
+      // Error: In the paper, the interval is specified as RightOpen, when it
+      //        should actually be LeftOpen.
+      var interval = IdentifierCircularInterval.createLeftOpen(
+              getIdentifier(),
+              node.getIdentifier()
+      );
+
+      if (interval.contains(s.getIdentifier())) {
+        fingerTable.setNode(i, s);
+        ChordNode p = predecessor();
+        p.updateFingerTable(s, i);
+      }
       /* TODO: Implementation required. */
-      throw new RuntimeException("This method has not been implemented!");
     });
   }
 
@@ -235,9 +257,19 @@ public class ChordPeer extends AbstractChordPeer {
   public void notify(ChordNode nprime) {
     if (this.status() == NodeStatus.OFFLINE || this.status() == NodeStatus.JOINING) return;
 
+    ChordNode p = predecessor();
+    if (p == null) {
+      setPredecessor(nprime);
+      return;
+    }
 
+    var interval = IdentifierCircularInterval.createOpen(
+            p.getIdentifier(),
+            getIdentifier());
+    if (interval.contains(nprime.getIdentifier())) {
+      setPredecessor(nprime);
+    }
     /* TODO: Implementation required. Hint: Null check on predecessor! */
-    throw new RuntimeException("This method has not been implemented!");
 
   }
 
@@ -249,9 +281,13 @@ public class ChordPeer extends AbstractChordPeer {
   @Override
   public void fixFingers() {
     if (this.status() == NodeStatus.OFFLINE || this.status() == NodeStatus.JOINING) return;
-    int i = 1 + new Random().nextInt(finger().size());
-    var successor = findSuccessor(this,this.getNetwork().getIdentifierCircle().getIdentifierAt(this.fingerTable.start(i)));
-    ((ChordFingerTable) (this.finger())).setNode(i,successor);
+    int i = (int) (Math.random() * (finger().size() - 1) + 2);
+
+    var id = getNetwork().getIdentifierCircle().getIdentifierAt(finger().start(i));
+
+    fingerTable.setNode(
+            i,
+            findSuccessor(this, id));
 
     /* TODO: Implementation required */
 
@@ -268,10 +304,17 @@ public class ChordPeer extends AbstractChordPeer {
     if (this.status() == NodeStatus.OFFLINE || this.status() == NodeStatus.JOINING) return;
 
     ChordNode x = successor().predecessor();
-    if (this.equals(x) || this.successor().equals(x)) {
-      ((ChordFingerTable) (this.finger())).setNode(1, x);
-      this.successor().notify(this);
+    if (x != null){
+      var interval = IdentifierCircularInterval.createOpen(
+              getIdentifier(),
+              successor().getIdentifier());
+
+      if (interval.contains(x.getIdentifier())) {
+        // Set x as successor
+        fingerTable.setNode(1, x);
+      }
     }
+    successor().notify(this);
     /* TODO: Implementation required.Still need to test this*/
 
   }
